@@ -1,0 +1,30 @@
+version:  "3"
+# Specifies version of Docker Compose file. It is important to ensure compatibility with certain versions of Docker Compose
+
+services:
+  # Determine the Services That Will Be Run Using This Docker Compose File
+
+  test_runner:
+    # Service name, in this case 'test_runner'
+
+    build: .
+    # Command to build an image. Point '.' indicates the current directory,
+    # in which the dockerfile must be to build the image
+
+    image: pytest_runner
+    # Name to be assigned to the assembled image
+
+    container_name: pytest_runner_works
+    # Name of container to be used when starting. This name can be used to reference the container
+
+    environment:
+      - ENV=prod
+      # Setting environment variables in the container. Here the 'ENV' variable is set to 'prod'
+
+    volumes:
+      - .:/tests_project/
+      # Mount volumes. The current directory (labeled '.') is mounted in the '/tests_project/' directory in the container.
+      # This allows you to use local files inside the container
+
+    command: ["python", "-m", "pytest", "-s", "--alluredir=test_results/", "/tests_project/tests/"]
+    # Command that will be executed when the container starts. Here it starts pytest to perform tests
