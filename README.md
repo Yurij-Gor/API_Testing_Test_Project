@@ -29,17 +29,17 @@ The project has the following structure:
 
 API_Testing_Test_Project/
 │
-├── Practice/ # Additional practice files
-├── lib/ # Libraries or additional modules
-├── tests/ # Test directory
-│ ├── conftest.py # Test configuration file
-│ ├── test_user_auth.py # Test suite for user authentication
-│ ├── test_user_delete.py # Test suite for user deletion
-│ ├── test_user_edit.py # Test suite for user editing
-│ ├── test_user_get.py # Test suite for retrieving user data
-│ └── test_user_register.py # Test suite for user registration
-├── .gitignore # Specifies intentionally untracked files to ignore
-├── Dockerfile # Docker file for containerizing the application
+├── Practice/          # Additional practice files
+├── lib/               # Libraries or additional modules
+├── tests/             # Test directory
+│   ├── conftest.py    # Test configuration file
+│   ├── test_user_auth.py      # Test suite for user authentication
+│   ├── test_user_delete.py    # Test suite for user deletion
+│   ├── test_user_edit.py      # Test suite for user editing
+│   ├── test_user_get.py       # Test suite for retrieving user data
+│   └── test_user_register.py  # Test suite for user registration
+├── .gitignore         # Specifies intentionally untracked files to ignore
+├── Dockerfile         # Docker file for containerizing the application
 ├── docker-compose.yml # Docker compose file to define and run multi-container Docker applications
-├── environment.py # Environment configurations
-└── requirements.txt # Project dependencies
+├── environment.py     # Environment configurations
+└── requirements.txt   # Project dependencies
