@@ -12,7 +12,9 @@ This project is designed for the automation of API testing. It includes a series
 To work with this project, you will need Python 3.x. Clone the repository and install the dependencies:
 
 git clone https://github.com/Yurij-Gor/API_Testing_Test_Project
+
 cd API_Testing_Test_Project
+
 pip install -r requirements.txt
 
 
