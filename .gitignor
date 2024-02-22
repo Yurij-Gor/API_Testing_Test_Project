@@ -1,6 +1,12 @@
 .idea
 .pytest_cache
 __pycache__/
+
+# Ignore everything in the logs directory
 logs/*
+
+# But not the logs directory itself
+!logs/.gitkeep
+
 test_results/
 allure_results/

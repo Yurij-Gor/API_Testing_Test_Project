@@ -26,7 +26,7 @@ for request_method in allowed_methods:
 
         # Check the match of the query type and parameter value
         result = "OK" if  (request_method == parameter_method and success) or (
-            request_method != parameter_method and not success) else "ОШИБКА"
+            request_method != parameter_method and not success) else "Error"
 
         # Additional check when the server returns an error message "Wrong HTTP method"
         if request_method not in allowed_methods_final and response.status_code == 400 and "Wrong HTTP method" in response.text:
@@ -36,7 +36,7 @@ for request_method in allowed_methods:
         if request_method not in allowed_methods_final and response.status_code == 400:
             result = "OK"
 
-        print(f"Тип запроса: {request_method}, Значение параметра: {parameter_method} - {result}")
+        print(f"Request type: {request_method}, Parameter value: {parameter_method} - {result}")
         print(response.text)
         print(response)
         print("\n")
