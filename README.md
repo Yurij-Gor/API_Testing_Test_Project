@@ -4,9 +4,14 @@
 This project is designed for the automation of API testing. It includes a series of tests written in Python that can be run against different environments.
 
 ## Technologies
-- Python 3.x
-- Pytest for running the tests
-- Allure for test reporting
+This project is implemented using a variety of technologies and libraries to ensure high-quality API testing:
+
+- Python 3.x: The core programming language used for writing test scripts.
+- Requests Library: A simple, yet powerful HTTP library used for making API calls in Python. This library is chosen for its ease of use and its ability to handle various types of HTTP requests.
+- Pytest: A robust framework for running the tests, providing features such as fixtures and markers that make writing and organizing tests easier.
+- Allure: An open-source framework for test reporting, known for its ability to generate detailed and clear reports that include information about test execution and results.
+
+Each of these technologies contributes to the project's ability to conduct thorough and effective API testing, ensuring the API's reliability and performance.
 
 ## Installation
 To work with this project, you will need Python 3.x. Clone the repository and install the dependencies:
