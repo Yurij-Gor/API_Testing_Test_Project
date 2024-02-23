@@ -2,6 +2,13 @@ pipeline {
     agent any
 
     stages {
+        stage('Cleanup') {
+            steps {
+                bat "docker-compose down || true"
+                bat "docker rm -f pytest_runner_works1 || true"
+            }
+        }
+
         stage('Docker Compose Build and Run') {
             steps {
                 bat "docker-compose up --build -d"
@@ -10,7 +17,7 @@ pipeline {
 
         stage('Copy Allure Results') {
             steps {
-                bat "docker cp pytest_runner_works1:/tests_project/test_results allure_results"
+                bat "docker cp pytest_runner_works1:/tests_project/test_results allure_results || true"
             }
         }
 
