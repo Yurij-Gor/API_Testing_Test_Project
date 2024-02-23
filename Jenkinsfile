@@ -5,7 +5,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Сборка Docker образа
+                    // Build Docker Image
                     docker.build("my-test-image:${env.BUILD_ID}")
                 }
             }
@@ -14,10 +14,10 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    // Запуск Docker контейнера для выполнения тестов
+                    // Start Docker Container to Run Tests
                     docker.run("my-test-image:${env.BUILD_ID}").inside {
                         sh 'pytest -v --alluredir=allure-results'
-                        // Скопируйте результаты тестов из контейнера для генерации отчета
+                        // Copying test results from the report generation container
                         sh 'docker cp ${containerId}:/app/allure-results .'
                     }
                 }
@@ -26,7 +26,7 @@ pipeline {
 
         stage('Generate Allure Report') {
             steps {
-                // Генерация отчета Allure
+                // Allure report generation
                 allure([
                     includeProperties: false,
                     jdk: '',
