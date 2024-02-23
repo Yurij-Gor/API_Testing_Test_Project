@@ -14,7 +14,7 @@ services:
     image: pytest_runner
     # Name to be assigned to the assembled image
 
-    container_name: pytest_runner_works
+    container_name: pytest_runner_works1
     # Name of container to be used when starting. This name can be used to reference the container
 
     environment:
