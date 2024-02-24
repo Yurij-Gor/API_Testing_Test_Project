@@ -19,8 +19,8 @@ pipeline {
 
         stage('Copy Allure Results') {
             steps {
-                bat "docker cp pytest_runner_works1:/tests_project/test_results allure_results || true"
-                // Copies the Allure results from the test runner container to the host
+                bat "docker cp pytest_runner_works1:/tests_project/test_results . || true"
+                // Copies the Allure results from the test runner container to the host into the current directory
             }
         }
 
@@ -33,9 +33,12 @@ pipeline {
 
         stage('Generate Allure Report') {
             steps {
-                bat "allure generate allure_results -o allure_report --clean"
-                // Generates the Allure report from the results
-                // This step is optional if you're using Allure Docker Service to serve the reports dynamically
+                script {
+                    // Ensure Allure CLI is available
+                    def allureExecutable = tool 'Allure'
+                    bat "${allureExecutable}/bin/allure generate test_results -o allure_report --clean"
+                    // Generates the Allure report from the results in 'test_results' directory
+                }
             }
         }
     }

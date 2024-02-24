@@ -1,37 +1,30 @@
-version: "3"
-# Defines the version of the Docker Compose file format
+version:  "3"
+# Specifies version of Docker Compose file. It is important to ensure compatibility with certain versions of Docker Compose
 
 services:
-  # Defines the services to be created
+  # Determine the Services That Will Be Run Using This Docker Compose File
 
   test_runner:
+    # Service name, in this case 'test_runner'
+
     build: .
-    # Builds the Docker image for the test runner from the current directory
+    # Command to build an image. Point '.' indicates the current directory,
+    # in which the dockerfile must be to build the image
+
     image: pytest_runner
-    # Names the built image as 'pytest_runner'
+    # Name to be assigned to the assembled image
+
     container_name: pytest_runner_works1
-    # Sets a specific name for the running container
+    # Name of container to be used when starting. This name can be used to reference the container
+
     environment:
       - ENV=prod
-      # Sets an environment variable within the container
+      # Setting environment variables in the container. Here the 'ENV' variable is set to 'prod'
+
     volumes:
       - .:/tests_project/
-      # Mounts the current directory to /tests_project/ in the container
+      # Mount volumes. The current directory (labeled '.') is mounted in the '/tests_project/' directory in the container.
+      # This allows you to use local files inside the container
+
     command: ["python", "-m", "pytest", "-s", "--alluredir=test_results/", "/tests_project/tests/"]
-    # The command that runs pytest with Allure results generation
-
-  allure:
-    image: frankescobar/allure-docker-service
-    # Uses the Allure Docker Service image to serve the Allure report
-    environment:
-      CHECK_RESULTS_EVERY_SECONDS: 1
-      KEEP_HISTORY: "1"
-      # Environment variables for Allure Docker Service configuration
-    volumes:
-      - ./allure-results:/app/allure-results
-      - ./allure-report:/app/default-reports
-      # Mounts directories for results and reports to the Allure service
-    ports:
-      - "5050:5050"
-      # Exposes port 5050 to access the Allure report web UI
-
+    # Command that will be executed when the container starts. Here it starts pytest to perform tests
