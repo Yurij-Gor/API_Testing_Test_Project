@@ -29,7 +29,8 @@ pipeline {
 
         stage('Generate Allure Report') {
             steps {
-                bat "allure serve allure_results"
+                bat "allure generate allure_results -o allure_report --clean"
+                // bat "allure serve allure_results" // Use this line if you want to serve the report instead of generating static files
             }
         }
     }
