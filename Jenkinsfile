@@ -35,7 +35,7 @@ pipeline {
             steps {
                 script {
                     // Ensure Allure CLI is available
-                    def allureExecutable = tool 'Allure'
+                    def allureExecutable = tool 'allure_commandline'
                     bat "${allureExecutable}/bin/allure generate test_results -o allure_report --clean"
                     // Generates the Allure report from the results in 'test_results' directory
                 }
