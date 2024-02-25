@@ -56,11 +56,7 @@ pipeline {
 
         stage('Publish Allure Report') {
             steps {
-                // Publishes Allure report into Jenkins build dashboard
-                allure([
-                    reportPaths: ['allure-report'],
-                    results: [[path: 'allure-results']]
-                ])
+                allure results: [[path: 'allure-results']]
             }
         }
     }
@@ -68,8 +64,8 @@ pipeline {
     post {
         always {
             mail to: 'yurij.chernogorcev2@gmail.com',
-                 subject: "Build ${currentBuild.fullDisplayName}",
-                 body: "The build was ${currentBuild.currentResult}: Check the report at ${env.BUILD_URL}allure/"
+                 subject: "Test Report for ${env.JOB_NAME}",
+                 body: "The test report is available at: ${env.BUILD_URL}/artifact/allure-report/index.html"
             // Sends an email notification about the build status with a link to the Allure report
         }
     }
