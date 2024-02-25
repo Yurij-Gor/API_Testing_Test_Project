@@ -67,7 +67,7 @@ pipeline {
 
     post {
         always {
-            mail to: 'email1@example.com,email2@example.com',
+            mail to: 'yurij.chernogorcev2@gmail.com',
                  subject: "Build ${currentBuild.fullDisplayName}",
                  body: "The build was ${currentBuild.currentResult}: Check the report at ${env.BUILD_URL}allure/"
             // Sends an email notification about the build status with a link to the Allure report
