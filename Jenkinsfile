@@ -40,7 +40,7 @@ pipeline {
             steps {
                 bat "docker-compose run --rm test_runner allure generate /tests_project/test_results -o /tests_project/allure-report --clean"
             }
-        }        
+        }
 
         stage('Archive Results') {
             steps {
