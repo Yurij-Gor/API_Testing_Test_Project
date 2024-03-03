@@ -38,14 +38,9 @@ pipeline {
 
         stage('Generate Allure Report') {
             steps {
-                script {
-                    // Ensure Allure CLI is available
-                    def allureExecutable = tool 'allure_commandline'
-                    bat "${allureExecutable}/bin/allure generate test_results -o allure-report --clean"
-                    // Generates the Allure report from the results in 'test_results' directory
-                }
+                bat "docker-compose run --rm test_runner allure generate /tests_project/test_results -o /tests_project/allure-report --clean"
             }
-        }
+        }        
 
         stage('Archive Results') {
             steps {

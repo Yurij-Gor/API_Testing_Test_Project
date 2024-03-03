@@ -12,6 +12,17 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 # Execute the command to install Python dependencies listed in the requirements.txt file.
 
+# Установка Java
+RUN apt-get update && \
+    apt-get install -y openjdk-21-jdk && \
+    apt-get clean
+
+# Установка Allure CLI
+RUN wget https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.27.0/allure-commandline-2.27.0.tgz -O allure-commandline.tgz && \
+    tar -zxvf allure-commandline.tgz -C /opt/ && \
+    ln -s /opt/allure-2.27.0/bin/allure /usr/bin/allure && \
+    rm -f allure-commandline.tgz
+
 ENV ENV=prod
 # Set the ENV environment variable to 'prod'. This value can be used in your application
 # to define the working environment.
