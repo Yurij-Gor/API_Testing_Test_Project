@@ -12,6 +12,17 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 # Execute the command to install Python dependencies listed in the requirements.txt file.
 
+# Установка зависимостей
+RUN apt-get update && apt-get install -y \
+    wget \
+    openjdk-11-jdk \
+    && rm -rf /var/lib/apt/lists/*
+
+# Установка переменной окружения JAVA_HOME
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
+# Добавление JAVA_HOME в PATH
+ENV PATH $JAVA_HOME/bin:$PATH
+
 # Установка Allure CLI
 RUN apt-get update && \
     apt-get install -y wget && \
