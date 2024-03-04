@@ -29,6 +29,13 @@ pipeline {
             }
         }
 
+        stage('Generate Allure Report') {
+            steps {
+                bat "docker-compose run --rm test_runner allure generate /tests_project/test_results -o /tests_project/allure-report --clean"
+                // Generates the Allure report inside the Docker container
+            }
+        }
+
         stage('Stop Docker Compose') {
             steps {
                 bat "docker-compose down"
@@ -36,22 +43,17 @@ pipeline {
             }
         }
 
-        stage('Generate Allure Report') {
-            steps {
-                bat "docker-compose run --rm test_runner allure generate /tests_project/test_results -o /tests_project/allure-report --clean"
-            }
-        }
-
         stage('Archive Results') {
             steps {
-                // Archives Allure results and reports for future reference
                 archiveArtifacts artifacts: 'allure-report/**/*', allowEmptyArchive: true
+                // Archives the generated Allure report for future reference
             }
         }
 
         stage('Publish Allure Report') {
             steps {
                 allure results: [[path: 'allure-report']]
+                // Publishes the Allure report in the Jenkins job interface
             }
         }
     }
