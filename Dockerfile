@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
-# Установка Python и pip
-RUN apt-get update && apt-get install -y python3 python3-pip
+# Установка Python, pip и wget
+RUN apt-get update && apt-get install -y python3 python3-pip wget
 
 # Установка Java
 RUN apt-get install -y openjdk-11-jdk && \
