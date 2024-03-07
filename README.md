@@ -39,6 +39,32 @@ After running the test, start generating a report:
 allure serve test results
 ```
 
+## Running Tests in Docker
+To run the tests inside a Docker container, make sure you have Docker installed on your system. Then, execute the following commands:
+
+```bash
+docker-compose down
+docker pull python
+docker build -t pytest_runner .
+docker-compose up --build
+```
+
+This will ensure that the Docker environment is clean before starting, pull the latest Python image, build the test runner image, and then start the services as defined in your docker-compose.yml file.
+
+## Viewing Allure Report with Docker
+After running your tests in Docker, you can copy the test results from the Docker container to your local machine and view the Allure report using the following commands:
+
+Replace `<YourLocalPath>` with the path where you want to store the test results on your local machine.
+
+```bash
+docker cp pytest_runner_works1:/tests_project/test_results <YourLocalPath>/allure_results
+```
+To view the Allure report, run:
+```
+allure serve <YourLocalPath>/allure_results/test_results
+```
+This command will start a web server to serve your Allure report, which you can view in your web browser.
+
 ## Project Structure
 The project has the following structure:
 
