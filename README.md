@@ -18,19 +18,26 @@ Each of these technologies contributes to the project's ability to conduct thoro
 
 ## Installation
 To work with this project, you will need Python 3.x. Clone the repository and install the dependencies:
-
+```
 git clone https://github.com/Yurij-Gor/API_Testing_Test_Project
 
 cd API_Testing_Test_Project
 
 pip install -r requirements.txt
-
+```
 
 ## Running Tests
 To run the tests, set the environment variable `ENV` to `prod` (or to `dev`) and execute the tests using pytest with allure reports:
 
+```powershell
 $env:ENV="prod"; python -m pytest --alluredir=test_results/ tests/
+```
 
+After running the test, start generating a report: 
+
+```
+allure serve test results
+```
 
 ## Project Structure
 The project has the following structure:
