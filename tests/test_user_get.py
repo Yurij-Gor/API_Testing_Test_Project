@@ -62,15 +62,15 @@ class TestUserGetAnotherUser(BaseCase):
                                                        data=first_user_data)  # The First User Registration
         Assertions.assert_code_status(response_first_user_register, 200)  # Validate Successful Status Code
 
-        # Extract ID and the first username
-        first_user_id = self.get_json_value(response_first_user_register, "id")  # The First User ID extraction
-        first_user_username = first_user_data["username"]  # Extracting the first username
-
-        # Step 3: Register the Second User
+        # Step 2: Register the Second User
         second_user_data = self.prepare_registration_data()  # Data generation for the second user
         response_second_user_register = MyRequests.post("/user/",
                                                         data=second_user_data)  # Register the Second User
         Assertions.assert_code_status(response_second_user_register, 200)  # Validate Successful Status Code
+
+        # Step 3: Extract ID and the second username
+        second_user_id = self.get_json_value(response_second_user_register, "id")  # The Second User ID extraction
+        second_user_username = second_user_data["username"]  # Extracting the second user username
 
         # Step 4: Log in under the first user
         login_data = {
@@ -87,7 +87,7 @@ class TestUserGetAnotherUser(BaseCase):
         # Step 5: Query the second user’s id using token and auth_sid first
         # user
         response_get_another_user = MyRequests.get(
-            f"/user/{first_user_id}",  # Querying the second user’s ID
+            f"/user/{second_user_id}",  # Querying the second user’s ID
             headers={"x-csrf-token": token},  # The First User Token Transfer in Request Header
             cookies={"auth_sid": auth_sid}  # Transfer cookies auth_sid first user
         )
@@ -101,8 +101,8 @@ class TestUserGetAnotherUser(BaseCase):
         unexpected_fields = ["id", "email", "firstName", "lastName", "password", "token", "session_id", "auth_sid"]
         Assertions.assert_json_has_not_keys(response_get_another_user, unexpected_fields)
 
-        # Verify that the 'username' field value matches the expected value (first username)
+        # Verify that the 'username' field value matches the expected value (second user username)
         Assertions.assert_json_value_by_name(
-            response_get_another_user, "username", first_user_username,
+            response_get_another_user, "username", second_user_username,
             "Unexpected username value for another user"
         )  # Check if the 'username' field matches the expected value

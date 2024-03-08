@@ -35,7 +35,7 @@ class TestUserDelete(BaseCase):
 
         # Verify that the server returned an error and did not allow user deletion
         Assertions.assert_code_status(response_delete, 400)
-        assert response_delete.text == "Please, do not delete test users with ID 1, 2, 3, 4 or 5.", \
+        assert response_delete.json().get("error") == "Please, do not delete test users with ID 1, 2, 3, 4 or 5.", \
             f"User with ID 2 was deleted! This shouldn't have happened. Response text is {response_delete.text}"
 
         """
@@ -132,7 +132,7 @@ class TestUserDelete(BaseCase):
 
         # Verify that the server did not allow deletion and returned an error
         Assertions.assert_code_status(response_delete, 400)
-        assert response_delete.text == "You can delete only your account", \
+        assert response_delete.json().get("error") == "This user can only delete their own account.", \
             f"Error message is absent. Maybe user was deleted by another user. Response text is {response_delete.text}"
 
         """

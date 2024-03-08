@@ -82,9 +82,8 @@ class TestUserEditNegative(BaseCase):
 
         # Check that the response code is 400 (Bad Request)
         Assertions.assert_code_status(response, 400)
-        expected_content = "Auth token not supplied"
-        assert response.text == expected_content, \
-            f"Unexpected response content. Expected: {expected_content}, Actual: {response.text}"
+        assert response.json().get("error") == "Auth token not supplied",\
+            f"Unexpected response content. Expected: Auth token not supplied, Actual: {response.text}"
 
         """
         Assertions.assert_json_value_by_name(
@@ -180,12 +179,10 @@ class TestUserEditNegative(BaseCase):
             data={"firstName": "NewName"}
         )
 
-        # Check Server Response Text
-        # Expected response text if user does not have action permission
-        expected_content = "You do not have permission to perform this action"
-        # Verify that the server response text is as expected
-        assert response.text == expected_content, \
-            f"Unexpected response content. Expected: {expected_content}, Actual: {response.text}"
+        # Check Server Response
+        # Verify that the server response is as expected
+        assert response.json().get("error") == "This user can only edit their own data.",\
+            f"Unexpected response content. Expected: This user can only edit their own data, Actual: {response.text}"
 
         """
         Assertions.assert_json_value_by_name(
@@ -219,9 +216,8 @@ class TestUserEditNegative(BaseCase):
 
         # Check that the response code is 400 (Bad Request)
         Assertions.assert_code_status(response, 400)
-        expected_content = "Invalid email format"
-        assert response.text == expected_content, \
-            f"Unexpected response content. Expected: {expected_content}, Actual: {response.text}"
+        assert response.json().get("error") == "Invalid email format",\
+            f"Unexpected response content. Expected: Invalid email format, Actual: {response.text}"
 
         """
         Assertions.assert_json_value_by_name(
@@ -255,7 +251,7 @@ class TestUserEditNegative(BaseCase):
 
         # Check that the response code is 400 (Bad Request)
         Assertions.assert_code_status(response, 400)
-        expected_content = "Too short value for field firstName"
+        expected_content = "The value for field `firstName` is too short"
         Assertions.assert_json_value_by_name(
             response, "error", expected_content,
             f"Unexpected response content. Expected: {expected_content}, Actual: {response.text}")
