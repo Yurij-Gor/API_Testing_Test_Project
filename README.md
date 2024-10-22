@@ -36,7 +36,7 @@ $env:ENV="prod"; python -m pytest --alluredir=test_results/ tests/
 After running the test, start generating a report: 
 
 ```
-allure serve test results
+allure serve test_results
 ```
 
 ## Running Tests in Docker
