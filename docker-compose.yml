@@ -26,5 +26,5 @@ services:
       # Mount volumes. The current directory (labeled '.') is mounted in the '/tests_project/' directory in the container.
       # This allows you to use local files inside the container
 
-    command: ["python3", "-m", "pytest", "-s", "--alluredir=test_results/", "/tests_project/tests/"]
+    command: ["/opt/venv/bin/python", "-m", "pytest", "-s", "--alluredir=test_results/", "/tests_project/tests/"]
     # Command that will be executed when the container starts. Here it starts pytest to perform tests

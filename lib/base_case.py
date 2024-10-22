@@ -56,7 +56,7 @@ class BaseCase:
         if email is None:  # Verify if the email parameter is set. If not, we create the email ourselves
             base_part = "learnqa"  # Basic email part
             domain = "example.com"  # Domain for email
-            random_part = datetime.now().strftime("%m%d%Y%H%M%S")
+            random_part = datetime.now().strftime("%m%d%Y%H%M%S%f")[:-3]
             # Generate unique part of email using current date and time to avoid repetition
 
             email = f"{base_part}{random_part}@{domain}"
@@ -70,22 +70,3 @@ class BaseCase:
             'email': email  # Return the created email
         }
         # Method returns dictionary with data to register
-
-
-"""
-    def prepare_registration_data(self, email=None):
-        if email is None:
-            base_part = "learnqa"
-            domain = "example.com"
-            random_part = datetime.now().strftime("%m%d%Y%H%M%S")
-            email =f{base_part}{random_part}@{domain}
-            
-        return {
-            'password': '123'
-            'username': 'learnqa'
-            'firstName': 'learnqa'
-            'lastName':  'learnqa'
-            'email': email
-        }
-        
-"""
