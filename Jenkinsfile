@@ -18,8 +18,10 @@ pipeline {
 
         stage('Docker Compose Build and Run') {
             steps {
-                bat "docker-compose build" // Only rebuild if necessary
+                bat "docker-compose build"
+                // Only rebuilds the image if there are changes
                 bat "docker-compose up -d"
+                // Starts the services in detached mode
             }
         }
 
@@ -46,8 +48,8 @@ pipeline {
 
         stage('Stop Docker Compose') {
             steps {
-                bat "docker-compose down"
-                // Stops and removes the containers, networks, volumes, and images created by `up`
+                bat "docker-compose down --volumes --remove-orphans"
+                // Stops the services and cleans up the associated volumes and orphaned containers
             }
         }
 
