@@ -17,8 +17,14 @@ pipeline {
 
         stage('Docker Compose Build and Run') {
             steps {
-                bat "docker-compose up --build -d"
+                bat "docker-compose up --build --no-cache -d"
                 // Builds and starts the test runner and Allure Docker Service in detached mode
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                bat "docker exec pytest_runner_works1 /opt/venv/bin/python -m pytest --alluredir=/tests_project/test_results"
             }
         }
 
