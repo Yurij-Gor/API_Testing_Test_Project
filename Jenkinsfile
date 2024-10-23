@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        LANG = 'C.UTF-8'
+        LC_ALL = 'C.UTF-8'
+    }
+
     tools {
         // Defines Allure as a tool to be used
         allure 'allure_commandline'
@@ -30,12 +35,23 @@ pipeline {
                 bat "docker exec pytest_runner_works1 /opt/venv/bin/python -m pytest --alluredir=/tests_project/test_results/ || true"
                 // Runs the tests but doesn't fail the pipeline if tests fail (allows completion)
             }
+            post {
+                always {
+                    echo 'Tests completed, proceeding with report generation...'
+                }
+            }
         }
 
         stage('Copy Allure Results') {
             steps {
                 bat "docker cp pytest_runner_works1:/tests_project/test_results . || true"
                 // Copies the Allure results from the test runner container to the host into the current directory
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'test_results/**/*', allowEmptyArchive: true
+                    // Ensures the results are archived even if the tests fail
+                }
             }
         }
 
