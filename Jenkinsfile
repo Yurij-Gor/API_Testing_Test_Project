@@ -15,16 +15,24 @@ pipeline {
             }
         }
 
-        stage('Docker Compose Build and Run') {
+        stage('Docker Compose Build') {
             steps {
-                bat "docker-compose up --build --no-cache -d"
-                // Builds and starts the test runner and Allure Docker Service in detached mode
+                bat "docker-compose build --no-cache"
+                // Builds the images without cache
+            }
+        }
+
+        stage('Docker Compose Run') {
+            steps {
+                bat "docker-compose up -d"
+                // Starts the containers in detached mode
             }
         }
 
         stage('Run Tests') {
             steps {
-                bat "docker exec pytest_runner_works1 /opt/venv/bin/python -m pytest --alluredir=/tests_project/test_results"
+                bat "docker exec pytest_runner_works1 /opt/venv/bin/python -m pytest --alluredir=/tests_project/test_results/"
+                // Runs the tests inside the Docker container
             }
         }
 
