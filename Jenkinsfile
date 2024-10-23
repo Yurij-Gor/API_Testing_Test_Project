@@ -15,17 +15,10 @@ pipeline {
             }
         }
 
-        stage('Docker Compose Build') {
+        stage('Docker Compose Build and Run') {
             steps {
-                bat "docker-compose build --no-cache"
-                // Builds the images without cache
-            }
-        }
-
-        stage('Docker Compose Run') {
-            steps {
+                bat "docker-compose build" // Only rebuild if necessary
                 bat "docker-compose up -d"
-                // Starts the containers in detached mode
             }
         }
 
