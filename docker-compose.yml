@@ -1,6 +1,3 @@
-version:  "3"
-# Specifies version of Docker Compose file. It is important to ensure compatibility with certain versions of Docker Compose
-
 services:
   # Determine the Services That Will Be Run Using This Docker Compose File
 
@@ -28,3 +25,8 @@ services:
 
     command: ["/opt/venv/bin/python", "-m", "pytest", "-s", "--alluredir=test_results/", "/tests_project/tests/"]
     # Command that will be executed when the container starts. Here it starts pytest to perform tests
+
+    deploy:
+      resources:
+        limits:
+          memory: 2g

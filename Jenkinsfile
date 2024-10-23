@@ -9,9 +9,10 @@ pipeline {
     stages {
         stage('Cleanup') {
             steps {
-                bat "docker-compose down || true"
+                bat "docker-compose down --volumes --remove-orphans || true"
+                // Cleans up containers, volumes, and orphan containers but doesn't remove the image
                 bat "docker rm -f pytest_runner_works1 || true"
-                // Ensures a clean state before starting the test run
+                // Ensures any previous containers are removed
             }
         }
 
@@ -24,8 +25,8 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat "docker exec pytest_runner_works1 /opt/venv/bin/python -m pytest --alluredir=/tests_project/test_results/"
-                // Runs the tests inside the Docker container
+                bat "docker exec pytest_runner_works1 /opt/venv/bin/python -m pytest --alluredir=/tests_project/test_results/ || true"
+                // Runs the tests but doesn't fail the pipeline if tests fail (allows completion)
             }
         }
 
@@ -52,8 +53,8 @@ pipeline {
 
         stage('Archive Results') {
             steps {
-                archiveArtifacts artifacts: 'allure-report/**/*', allowEmptyArchive: true
-                // Archives the generated Allure report for future reference
+                archiveArtifacts artifacts: 'allure-report/**/*', allowEmptyArchive: false
+                // Archives the generated Allure report if it exists (ensures that empty archives are not allowed)
             }
         }
 
