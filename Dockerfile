@@ -1,7 +1,16 @@
 FROM ubuntu:latest
 
 # Installing Python, pip, wget, and python3-venv
-RUN apt-get update && apt-get install -y python3 python3-pip wget python3-venv
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip wget python3-venv locales && \
+    apt-get clean
+
+# Set up locale
+RUN locale-gen en_US.UTF-8 && \
+    update-locale LANG=en_US.UTF-8
+
+# Setting environment variables for locale
+ENV LANG en_US.UTF-8
 
 # Installing Java
 RUN apt-get install -y openjdk-11-jdk && \
