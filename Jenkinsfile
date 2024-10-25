@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        LANG = 'C.UTF-8'
-        LC_ALL = 'C.UTF-8'
+    LANG = 'C.UTF-8'
+    LC_ALL = 'C.UTF-8'
     }
 
     tools {

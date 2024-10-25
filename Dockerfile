@@ -11,6 +11,7 @@ RUN locale-gen en_US.UTF-8 && \
 
 # Setting environment variables for locale
 ENV LANG en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
 
 # Installing Java
 RUN apt-get install -y openjdk-11-jdk && \
