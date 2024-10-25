@@ -3,6 +3,10 @@
 ## Description
 This project is designed for the automation of API testing and showcases a custom-built testing framework housed within the `lib/` directory. Project includes a series of tests written in Python that can be run against different environments. It also uses local Jenkins for CI/CD, Docker for containerization, and Docker Compose for multi-container orchestration, to simulate the full testing workflow.
 
+## Test Results
+View the Allure Test Report:  
+[Allure Report](https://yurij-gor.github.io/API_Testing_Test_Project/)
+
 ## Technologies
 This project is implemented using a variety of technologies and libraries to ensure high-quality API testing:
 
